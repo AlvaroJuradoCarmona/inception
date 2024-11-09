@@ -10,7 +10,7 @@
 datadir=/var/lib/mysql
 socket=/run/mysqld/mysqld.sock
 bind_address=*
-port=3307
+port=3306
 user=mysql
 
 # Galera-related settings

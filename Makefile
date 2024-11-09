@@ -1,38 +1,38 @@
 
-NGINX_DIR			= /home/$(USER)/data
-WORDPRESS_DIR		= $(NGINX_DIR)/wordpress
-MARIADB_DIR			= $(NGINX_DIR)/mariadb
-DOCKER_COMPOSE		= ./srcs/docker-compose.yml
+BASE_DATA_DIR				= /home/$(USER)/data
+MARIADB_DIR					= $(BASE_DATA_DIR)/mariadb
+WORDPRESS_DIR				= $(BASE_DATA_DIR)/wordpress
+
+COMPOSE_FILE_ROUTE	= ./srcs/docker-compose.yml
 
 all: up
 
 up:
-		mkdir -p $(NGINX_DIR)
 		mkdir -p $(MARIADB_DIR)
 		mkdir -p $(WORDPRESS_DIR)
-	 	docker compose -f $(DOCKER_COMPOSE) up --build
+		sudo docker compose -f $(COMPOSE_FILE_ROUTE) up -d --build
 
 down:
-		docker compose -f $(DOCKER_COMPOSE) down
+		sudo docker compose -f $(COMPOSE_FILE_ROUTE) down
 
 clean: down
-	if [ $$(docker container ls -qa | wc -l) -gt 0 ]; then \
-		docker container rm -f $$(docker container ls -qa); \
+	if [ $$(sudo docker container ls -qa | wc -l) -gt 0 ]; then \
+		sudo docker container rm -f $$(sudo docker container ls -qa); \
 	fi
-	if [ $$(docker image ls -qa | wc -l) -gt 0 ]; then \
-		docker image rm -f $$(docker image ls -qa); \
+	if [ $$(sudo docker image ls -qa | wc -l) -gt 0 ]; then \
+		sudo docker image rm -f $$(sudo docker image ls -qa); \
 	fi
-	if [ $$(docker network ls --filter type=custom -q | wc -l) -gt 0 ]; then \
-    docker network rm $$(docker network ls --filter type=custom -q); \
+	if [ $$(sudo docker network ls --filter type=custom -q | wc -l) -gt 0 ]; then \
+    sudo docker network rm $$(sudo docker network ls --filter type=custom -q); \
 	fi
-	rm -rf $(MARIADB_DIR)
-	rm -rf $(WORDPRESS_DIR)
+	sudo rm -rf $(MARIADB_DIR)
+	sudo rm -rf $(WORDPRESS_DIR)
 
 fclean: clean
-		if [ $$(docker volume ls -q | wc -l) -gt 0 ]; then \
-			docker volume rm $$(docker volume ls -q); \
+		if [ $$(sudo docker volume ls -q | wc -l) -gt 0 ]; then \
+			sudo docker volume rm $$(sudo docker volume ls -q); \
 		fi
-		rm -rf $(NGINX_DIR)
+		rm -rf $(BASE_DATA_DIR)
 
 re: fclean all
 

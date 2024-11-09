@@ -4,7 +4,7 @@ service mariadb start;
 
 sleep 10
 
-mysql -e "ALTER USER 'root'@'mariadb' IDENTIFIED BY '${MDB_ROOT_PASSWORD}';"
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MDB_ROOT_PASSWORD}';"
 
 mysql -uroot -p"${MDB_ROOT_PASSWORD}" -e "CREATE DATABASE IF NOT EXISTS \`${MDB_DATABASE}\`;"
 
@@ -12,7 +12,7 @@ mysql -uroot -p"${MDB_ROOT_PASSWORD}" -e "CREATE USER IF NOT EXISTS \`${MDB_USER
 
 mysql -uroot -p"${MDB_ROOT_PASSWORD}" -e "GRANT ALL PRIVILEGES ON \`${MDB_DATABASE}\`.* TO \`${MDB_USER}\`@'%' IDENTIFIED BY '${MDB_PASSWORD}';"
 
-mysql -uroot -p"${MDB_ROOT_PASSWORD}" -e "DROP USER IF EXISTS ''@'mariadb';"
+mysql -uroot -p"${MDB_ROOT_PASSWORD}" -e "DROP USER IF EXISTS ''@'localhost';"
 
 mysql -uroot -p"${MDB_ROOT_PASSWORD}" -e "FLUSH PRIVILEGES;"
 

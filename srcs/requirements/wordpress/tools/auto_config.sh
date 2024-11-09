@@ -11,7 +11,7 @@ if [ ! -e /var/www/wordpress/wp-config.php ]; then
         --dbname=$MDB_DATABASE \
         --dbuser=$MDB_USER \
         --dbpass=$MDB_PASSWORD \
-        --dbhost=mariadb:3307 \
+        --dbhost=mariadb:3306 \
         --path='/var/www/wordpress'
 
     sleep 2
