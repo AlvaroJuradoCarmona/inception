@@ -44,12 +44,12 @@ volumes:
   driver: local
   driver_opts:
    type: none
-   device: /home/ajurado/data/mariadb
+   device: /home/ajurado-/data/mariadb
    o: bind
  wordpress:
   name: wordpress
   driver: local
   driver_opts:
    type: none
-   device: /home/ajurado/data/wordpress
+   device: /home/ajurado-/data/wordpress
    o: bind
